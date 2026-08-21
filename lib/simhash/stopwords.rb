@@ -1,5 +1,7 @@
-require File.join(File.dirname(__FILE__), "stopwords", "en")
-require File.join(File.dirname(__FILE__), "stopwords", "ru")
+# frozen_string_literal: true
+
+require File.join(File.dirname(__FILE__), 'stopwords', 'en')
+require File.join(File.dirname(__FILE__), 'stopwords', 'ru')
 
 module Simhash
   module Stopwords
