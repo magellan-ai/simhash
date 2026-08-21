@@ -1,46 +1,21 @@
 # frozen_string_literal: true
 
-require 'rake'
-require 'rake/testtask'
-require 'rake/rdoctask'
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
-$LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
-require 'simhash'
+task default: :spec
 
-desc 'Default: run unit tests.'
-task default: [:test]
+RSpec::Core::RakeTask.new(:spec)
 
-desc 'Test the simhash gem'
-Rake::TestTask.new(:test) do |t|
-  t.libs << '.'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
-end
+RuboCop::RakeTask.new
 
-desc 'Start an IRB session with all necessary files required.'
-task :shell do |_t|
-  chdir File.dirname(__FILE__)
-  exec 'irb -I lib/ -I lib/simhash -I lib/string -I lib/integer -r rubygems'
-end
-
-desc 'Build the gemspec.'
-task :gemspec do |_t|
-  exec 'gem build simhash.gemspec'
-end
-
-desc 'Print a list of the files to be put into the gem'
+desc 'List the files that will be packaged into the gem'
 task :manifest do
-  spec.files.each do |file|
-    puts file
-  end
+  Gem::Specification.load('simhash.gemspec').files.sort.each { |file| puts file }
 end
 
-desc 'Generate a gemspec file for GitHub'
-task :gemspec do
-  File.write("#{spec.name}.gemspec", spec.to_ruby)
-end
-
-desc 'Build the gem into the current directory'
-task gem: :gemspec do
-  `gem build #{spec.name}.gemspec`
+desc 'Start an IRB session with the gem loaded'
+task :shell do
+  exec 'irb -I lib -r simhash'
 end
