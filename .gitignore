@@ -2,4 +2,48 @@
 *.bundle
 *.o
 Makefile
+ext/string_hashing/mkmf.log
 /tmp
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+.idea/*
+
+.tool-versions
+
+.DS_Store
+
+.irbrc_history
+.irb_history
+
+.env
+
+# Crash log files
+crash.log
+
+# Editor-specific files
+.vscode/
+.ruby-lsp.yml
+
+# Third-party skills and agents (installed locally)
+skills-lock.json
+
+# Claude Code local files
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/agent-memory/
+.claude/worktrees/
+.worktrees/
+
+# Claude Code harness scheduled-task lock file (per-session, not for commit)
+.claude/scheduled_tasks.lock
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
+# Bundler installs here in CI (bundle config set --local path vendor/bundle).
+/vendor/bundle
