@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.name = 'simhash'
   s.version = '0.3.0'
   s.authors = ['Ryan Kerr', 'Alex Gusev']
-  s.email = ['ryan@magellan.ai', 'alex.gusev@bookmate.ru']
+  s.email = %w[ryan@magellan.ai alex.gusev@bookmate.ru]
   s.homepage = 'https://github.com/magellan-ai/simhash'
   s.license = 'MIT'
   s.description = 'Implementation of Charikar simhashes in Ruby'
@@ -21,6 +21,6 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.extensions = ['ext/string_hashing/extconf.rb']
 
-  s.add_dependency 'activesupport'
+  s.add_dependency 'activesupport', '~> 8.0'
   s.add_dependency 'unicode', '>= 0.3.1'
 end
