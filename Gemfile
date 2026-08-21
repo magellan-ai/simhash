@@ -9,3 +9,8 @@ group :development do
   gem 'rubocop-performance', '~> 1.27'
   gem 'rubocop-rspec', '~> 3.9'
 end
+
+group :test do
+  gem 'rspec', '~> 3.12'
+  gem 'simplecov'
+end
