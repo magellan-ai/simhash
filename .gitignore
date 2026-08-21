@@ -5,6 +5,9 @@ Makefile
 ext/string_hashing/mkmf.log
 /tmp
 
+# Libraries resolve dependencies fresh against the host app's constraints.
+Gemfile.lock
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -12,6 +15,7 @@ ext/string_hashing/mkmf.log
 !/tmp/.keep
 
 .idea/*
+simhash.iml
 
 .tool-versions
 
