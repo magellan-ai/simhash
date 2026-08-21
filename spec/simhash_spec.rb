@@ -40,5 +40,13 @@ RSpec.describe Simhash do
     it 'strips punctuation and downcases' do
       expect(described_class.filtered_tokens(['Word,'])).to eq(['word'])
     end
+
+    it 'separates on a non-breaking space, which \s does not match' do
+      expect(described_class.filtered_tokens(["Word\u00A0Word"])).to eq(['word word'])
+    end
+
+    it 'keeps non-ASCII letters, which \W would strip' do
+      expect(described_class.filtered_tokens(['Слово'])).to eq(['слово'])
+    end
   end
 end
