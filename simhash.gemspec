@@ -22,5 +22,4 @@ Gem::Specification.new do |s|
   s.extensions = ['ext/string_hashing/extconf.rb']
 
   s.add_dependency 'activesupport', '~> 8.0'
-  s.add_dependency 'unicode', '>= 0.3.1'
 end
