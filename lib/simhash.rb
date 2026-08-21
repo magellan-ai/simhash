@@ -5,7 +5,6 @@ require 'active_support/core_ext/string/multibyte'
 # ActiveSupport.deprecator, which the multibyte core_ext alone does not load.
 require 'active_support/deprecation'
 require 'active_support/deprecator'
-require 'unicode'
 
 require 'string'
 require 'integer'
@@ -54,7 +53,7 @@ module Simhash
       # cutting punctuation (\302\240 is unbreakable space)
       token = token.gsub(PUNCTUATION_REGEXP, ' ') unless options[:preserve_punctuation]
 
-      token = Unicode.downcase(token.strip)
+      token = token.strip.downcase
 
       # cutting stop-words
       token = token.split.select { |w| Stopwords::ALL.index(" #{w} ").nil? }.join(' ') if options[:stop_words]
