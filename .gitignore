@@ -51,3 +51,6 @@ CLAUDE.local.md
 
 # Bundler installs here in CI (bundle config set --local path vendor/bundle).
 /vendor/bundle
+
+# SimpleCov output (spec/spec_helper.rb).
+/coverage
