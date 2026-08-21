@@ -67,8 +67,4 @@ module Simhash
     each_filtered_token(tokens, options) { |token| filtered_tokens << token }
     filtered_tokens
   end
-
-  def self.hm
-    @@string_hash_method
-  end
 end
