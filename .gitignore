@@ -38,10 +38,7 @@ skills-lock.json
 
 # Claude Code local files
 CLAUDE.local.md
-.claude/settings.local.json
-.claude/agent-memory/
-.claude/worktrees/
-.worktrees/
+.claude
 
 # Claude Code harness scheduled-task lock file (per-session, not for commit)
 .claude/scheduled_tasks.lock
