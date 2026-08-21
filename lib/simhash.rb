@@ -17,12 +17,7 @@ end
 
 module Simhash
   DEFAULT_STRING_HASH_METHOD = String.public_method_defined?(:hash_vl) ? :hash_vl : :hash_vl_rb
-  PUNCTUATION_REGEXP =
-    if RUBY_VERSION >= '1.9'
-      /(\s|\d|[^\p{L}]|\302\240| *— *|[«»…\-–—]| )+/u
-    else
-      /(\s|\d|\W|\302\240| *— *|[«»…\-–—]| )+/u
-    end
+  PUNCTUATION_REGEXP = /(\s|\d|[^\p{L}]|\u00A0| *— *|[«»…\-–—]| )+/
 
   def self.hash(tokens, options = {})
     hashbits = options[:hashbits] || 64
@@ -50,7 +45,7 @@ module Simhash
     token_min_size = options[:token_min_size].to_i
     stop_sentenses = options[:stop_sentenses]
     tokens.each do |token|
-      # cutting punctuation (\302\240 is unbreakable space)
+      # cutting punctuation
       token = token.gsub(PUNCTUATION_REGEXP, ' ') unless options[:preserve_punctuation]
 
       token = token.strip.downcase
