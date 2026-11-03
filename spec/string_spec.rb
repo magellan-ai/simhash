@@ -13,6 +13,10 @@ RSpec.describe String do
     it 'tokenizes on the given separator' do
       expect('In the'.simhash(split_by: '')).to eq(Simhash.hash(['I', 'n', ' ', 't', 'h', 'e']))
     end
+
+    it 'rejects unknown options' do
+      expect { 'In the'.simhash(splitby: '') }.to raise_error(ArgumentError, /splitby/)
+    end
   end
 
   describe '#hash_vl_rb' do

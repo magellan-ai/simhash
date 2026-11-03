@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class String
-  def simhash(options = {}) # rubocop:disable Style/OptionHash
-    split_by = options.delete(:split_by) || ' '
-    Simhash.hash(split(split_by), options)
+  def simhash(split_by: ' ', **hash_options)
+    Simhash.hash(split(split_by), **hash_options)
   end
 
   # Decimal-string form of #hash_vl_rb, kept for callers of the removed C extension's method.

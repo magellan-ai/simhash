@@ -36,11 +36,26 @@ RSpec.describe Simhash do
           .to eq(described_class.hash('начале Слово'.split, hashbits: 64))
       end
     end
+
+    it 'rejects unknown options' do
+      expect { described_class.hash(%w[word], hashbit: 64) }.to raise_error(ArgumentError, /hashbit/)
+    end
+  end
+
+  describe '.each_filtered_token' do
+    it 'rejects unknown options' do
+      expect { described_class.each_filtered_token(%w[word], stopwords: true) { |token| token } }
+        .to raise_error(ArgumentError, /stopwords/)
+    end
   end
 
   describe '.filtered_tokens' do
     it 'drops tokens shorter than token_min_size' do
       expect(described_class.filtered_tokens(%w[a bb ccc], token_min_size: 2)).to eq(%w[bb ccc])
+    end
+
+    it 'rejects unknown options' do
+      expect { described_class.filtered_tokens(%w[word], min_size: 2) }.to raise_error(ArgumentError, /min_size/)
     end
 
     it 'measures token_min_size in characters, not bytes' do
