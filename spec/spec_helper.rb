@@ -30,8 +30,4 @@ RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect
   end
-
-  # String#hash_vl is provided by ext/string_hashing, which is skipped entirely when GMP
-  # headers are absent; its specs would raise NoMethodError rather than fail meaningfully.
-  config.filter_run_excluding(requires_c_extension: true) unless String.public_method_defined?(:hash_vl)
 end

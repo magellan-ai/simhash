@@ -10,13 +10,8 @@ require 'string'
 require 'integer'
 require 'simhash/stopwords'
 
-begin
-  require 'string_hashing'
-rescue LoadError
-end
-
 module Simhash
-  DEFAULT_STRING_HASH_METHOD = String.public_method_defined?(:hash_vl) ? :hash_vl : :hash_vl_rb
+  DEFAULT_STRING_HASH_METHOD = :hash_vl_rb
   PUNCTUATION_REGEXP = /(\s|\d|[^\p{L}]|\u00A0| *— *|[«»…\-–—]| )+/
 
   def self.hash(tokens, options = {})

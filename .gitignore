@@ -1,8 +1,4 @@
 *.gem
-*.bundle
-*.o
-Makefile
-ext/string_hashing/mkmf.log
 /tmp
 
 # Libraries resolve dependencies fresh against the host app's constraints.

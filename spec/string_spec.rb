@@ -26,9 +26,12 @@ RSpec.describe String do
   end
 
   describe '#hash_vl' do
-    it 'agrees with the pure-Ruby implementation', requires_c_extension: true do
-      expect('В начале'.hash_vl(64).to_i).to eq('В начале'.hash_vl_rb(64))
-      expect('было слово'.hash_vl(64).to_i).to eq('было слово'.hash_vl_rb(64))
+    it 'returns the pure-Ruby hash as a decimal string' do
+      expect('В начале'.hash_vl(64)).to eq('В начале'.hash_vl_rb(64).to_s)
+    end
+
+    it 'hashes the empty string to "0"' do
+      expect(''.hash_vl(64)).to eq('0')
     end
   end
 end

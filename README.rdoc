@@ -45,9 +45,3 @@ Because different punctiation does not mean difference in general. If you not ag
 As usual:
 
 	gem install simhash
-  
-But if you have {GNU MP library}[http://gmplib.org/], simhash will work faster! To check out which version is used, type:
-
-	Simhash::DEFAULT_STRING_HASH_METHOD
-	
-It should return symbol. If symbol ends with "rb", your simhash is slow. If you want make it faster, install GNU MP.

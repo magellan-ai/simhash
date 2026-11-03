@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-include_globs = %w[README* LICENSE Rakefile init.rb {lib,rails,ext}/**/*]
-include_files = include_globs.map { |glob| Dir[glob] }.flatten
-exclude_globs = %w[**/*.o **/*.bundle **/Makefile *.bundle]
-exclude_files = exclude_globs.map { |glob| Dir[glob] }.flatten
+include_globs = %w[README* LICENSE Rakefile init.rb {lib,rails}/**/*]
 
 Gem::Specification.new do |s|
   s.name = 'simhash'
@@ -17,9 +14,8 @@ Gem::Specification.new do |s|
   s.metadata = { 'rubygems_mfa_required' => 'true' }
   s.required_ruby_version = '>= 3.3'
   s.platform = Gem::Platform::RUBY
-  s.files = include_files - exclude_files
+  s.files = include_globs.flat_map { |glob| Dir[glob] }
   s.require_path = 'lib'
-  s.extensions = ['ext/string_hashing/extconf.rb']
 
   s.add_dependency 'activesupport', '~> 8.0'
 end
