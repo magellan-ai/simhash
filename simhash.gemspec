@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-include_globs = %w[README* LICENSE Rakefile init.rb {lib,rails}/**/*]
+include_globs = %w[README* LICENSE Rakefile lib/**/*]
 
 Gem::Specification.new do |s|
   s.name = 'simhash'
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.metadata = { 'rubygems_mfa_required' => 'true' }
   s.required_ruby_version = '>= 3.3'
   s.platform = Gem::Platform::RUBY
-  s.files = include_globs.flat_map { |glob| Dir[glob] }
+  s.files = Dir.glob(include_globs, base: __dir__)
   s.require_path = 'lib'
 
   s.add_dependency 'activesupport', '>= 8.0', '< 8.2'
