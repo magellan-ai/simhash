@@ -18,4 +18,12 @@ RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect
   end
+
+  config.around(:example, deprecation_warnings: true) do |example|
+    deprecation_warnings_enabled = Warning[:deprecated]
+    Warning[:deprecated] = true
+    example.run
+  ensure
+    Warning[:deprecated] = deprecation_warnings_enabled
+  end
 end

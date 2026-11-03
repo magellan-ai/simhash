@@ -23,5 +23,8 @@ module Simhash
     RU = space_delimited(ru_words)
     ALL = (RU + EN).freeze
     WORDS = Set.new(ru_words + en_words).freeze
+
+    # Use WORDS instead.
+    deprecate_constant :EN, :RU, :ALL
   end
 end
