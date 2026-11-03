@@ -40,6 +40,10 @@ RSpec.describe Simhash do
     it 'rejects unknown options' do
       expect { described_class.hash(%w[word], hashbit: 64) }.to raise_error(ArgumentError, /hashbit/)
     end
+
+    it 'rejects an unknown hashing_method even when there are no tokens to hash' do
+      expect { described_class.hash([], hashing_method: :no_such_hash) }.to raise_error(ArgumentError, /no_such_hash/)
+    end
   end
 
   describe '.each_filtered_token' do
@@ -56,6 +60,15 @@ RSpec.describe Simhash do
 
     it 'rejects unknown options' do
       expect { described_class.filtered_tokens(%w[word], min_size: 2) }.to raise_error(ArgumentError, /min_size/)
+    end
+
+    it 'rejects a non-Integer token_min_size even when there are no tokens' do
+      expect { described_class.filtered_tokens([], token_min_size: nil) }.to raise_error(TypeError, /token_min_size/)
+    end
+
+    it 'rejects a non-Integer token_min_size even when filtering empties every token' do
+      expect { described_class.filtered_tokens(['the'], stop_words: true, token_min_size: '2') }
+        .to raise_error(TypeError, /token_min_size/)
     end
 
     it 'measures token_min_size in characters, not bytes' do

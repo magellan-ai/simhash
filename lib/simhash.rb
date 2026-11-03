@@ -10,6 +10,8 @@ module Simhash
 
   class << self
     def hash(tokens, hashbits: 64, hashing_method: DEFAULT_STRING_HASH_METHOD, **filter_options)
+      raise ArgumentError, "unknown hashing_method: #{hashing_method.inspect}" unless ''.respond_to?(hashing_method, true)
+
       v = [0] * hashbits
       masks = v.dup
       masks.each_with_index { |_e, i| masks[i] = (1 << i) }
@@ -29,6 +31,8 @@ module Simhash
     end
 
     def each_filtered_token(tokens, token_min_size: 0, stop_sentences: nil, preserve_punctuation: false, stop_words: false, stop_sentenses: nil)
+      raise TypeError, "token_min_size must be an Integer, got #{token_min_size.inspect}" unless token_min_size.is_a?(Integer)
+
       stop_sentences = resolve_stop_sentences(stop_sentences:, stop_sentenses:)
       tokens.each do |token|
         token = normalize_token(token, preserve_punctuation:, stop_words:)
