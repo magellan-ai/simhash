@@ -9,7 +9,7 @@ Ruby 3.3 and 3.4 should still be supported.
 
 Developers use either RVM or rbenv — detect which is available and set up accordingly.
 
-Before running any Ruby, bundle, rake, rails, or rspec commands, always prefix with the appropriate setup:
+Before running any Ruby, bundle, rake, or rspec commands, always prefix with the appropriate setup:
 
 **RVM** (if `~/.rvm/scripts/rvm` exists):
 ```
@@ -21,7 +21,7 @@ source ~/.rvm/scripts/rvm && rvm use ruby-4.0.6@simhash &&
 Examples (shown with RVM prefix — omit the prefix for rbenv):
 - `source ~/.rvm/scripts/rvm && rvm use ruby-4.0.6@simhash && bundle exec rspec`
 - `source ~/.rvm/scripts/rvm && rvm use ruby-4.0.6@simhash && bundle install`
-- `source ~/.rvm/scripts/rvm && rvm use ruby-4.0.6@simhash && rails console`
+- `source ~/.rvm/scripts/rvm && rvm use ruby-4.0.6@simhash && bundle exec rake shell`
 
 ## Conventions
 
