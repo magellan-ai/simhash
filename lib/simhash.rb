@@ -67,7 +67,7 @@ module Simhash
     def normalize_token(token, preserve_punctuation:, stop_words:)
       token = token.gsub(PUNCTUATION_REGEXP, ' ') unless preserve_punctuation
       token = token.strip.downcase
-      token = token.split.select { |w| Stopwords::ALL.index(" #{w} ").nil? }.join(' ') if stop_words
+      token = token.split.reject { |w| Stopwords::WORDS.include?(w) }.join(' ') if stop_words
       token
     end
 

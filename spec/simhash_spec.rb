@@ -35,6 +35,11 @@ RSpec.describe Simhash do
         expect(described_class.hash('В начале было Слово'.split, hashbits: 64, stop_words: true))
           .to eq(described_class.hash('начале Слово'.split, hashbits: 64))
       end
+
+      it 'drops stopwords containing punctuation when punctuation is preserved' do
+        expect(described_class.filtered_tokens(["Don't panic"], stop_words: true, preserve_punctuation: true))
+          .to eq(['panic'])
+      end
     end
 
     it 'rejects unknown options' do

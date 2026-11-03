@@ -22,5 +22,6 @@ module Simhash
     EN = space_delimited(en_words)
     RU = space_delimited(ru_words)
     ALL = (RU + EN).freeze
+    WORDS = Set.new(ru_words + en_words).freeze
   end
 end
