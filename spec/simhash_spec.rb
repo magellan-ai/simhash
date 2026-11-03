@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe Simhash do
+  describe 'DEFAULT_STRING_HASH_METHOD' do
+    it 'is the pure-Ruby hash' do
+      expect(described_class::DEFAULT_STRING_HASH_METHOD).to eq(:hash_vl_rb)
+    end
+  end
+
   describe '.hash' do
     it 'fingerprints a whitespace-split sentence' do
       fingerprint = described_class.hash('In the beginning was the Word'.split, hashbits: 64, token_min_size: 2)

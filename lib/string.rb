@@ -6,6 +6,11 @@ class String
     Simhash.hash(split(split_by), options)
   end
 
+  # Decimal-string form of #hash_vl_rb, kept for callers of the removed C extension's method.
+  def hash_vl(length)
+    hash_vl_rb(length).to_s
+  end
+
   def hash_vl_rb(length)
     return 0 if self == ''
 
