@@ -51,7 +51,7 @@ module Simhash
       # cutting stop-sentenses
       next if stop_sentenses&.include?(" #{token} ")
 
-      next if token.empty? || token.mb_chars.size < token_min_size
+      next if token.empty? || token.length < token_min_size
 
       yield token
     end
