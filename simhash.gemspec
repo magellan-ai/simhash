@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.files = include_globs.flat_map { |glob| Dir[glob] }
   s.require_path = 'lib'
 
-  s.add_dependency 'activesupport', '~> 8.0'
+  s.add_dependency 'activesupport', '>= 8.0', '< 8.2'
 end
