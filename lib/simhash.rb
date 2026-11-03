@@ -28,10 +28,11 @@ module Simhash
       fingerprint
     end
 
-    def each_filtered_token(tokens, token_min_size: 0, stop_sentenses: nil, preserve_punctuation: false, stop_words: false)
+    def each_filtered_token(tokens, token_min_size: 0, stop_sentences: nil, preserve_punctuation: false, stop_words: false, stop_sentenses: nil)
+      stop_sentences = resolve_stop_sentences(stop_sentences:, stop_sentenses:)
       tokens.each do |token|
         token = normalize_token(token, preserve_punctuation:, stop_words:)
-        yield token if keep_token?(token, token_min_size:, stop_sentenses:)
+        yield token if keep_token?(token, token_min_size:, stop_sentences:)
       end
     end
 
@@ -43,6 +44,22 @@ module Simhash
 
     private
 
+    def resolve_stop_sentences(stop_sentences:, stop_sentenses:)
+      return stop_sentences if stop_sentenses.nil?
+      raise ArgumentError, 'pass stop_sentences: or the deprecated stop_sentenses:, not both' unless stop_sentences.nil?
+
+      warn(
+        'Simhash: stop_sentenses: is deprecated; use stop_sentences: instead.',
+        uplevel:  external_caller_uplevel,
+        category: :deprecated
+      )
+      stop_sentenses
+    end
+
+    def external_caller_uplevel
+      caller_locations(1).index { |location| !location.path.start_with?("#{__dir__}/") }
+    end
+
     def normalize_token(token, preserve_punctuation:, stop_words:)
       token = token.gsub(PUNCTUATION_REGEXP, ' ') unless preserve_punctuation
       token = token.strip.downcase
@@ -50,8 +67,8 @@ module Simhash
       token
     end
 
-    def keep_token?(token, token_min_size:, stop_sentenses:)
-      return false if stop_sentenses&.include?(" #{token} ")
+    def keep_token?(token, token_min_size:, stop_sentences:)
+      return false if stop_sentences&.include?(" #{token} ")
 
       !token.empty? && token.length >= token_min_size
     end
