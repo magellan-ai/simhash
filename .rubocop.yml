@@ -218,10 +218,6 @@ Lint/UnusedBlockArgument:
 
 Lint/UnusedMethodArgument:
   Enabled: true
-  # Keyword args are routinely retained for interface conformance across polymorphic
-  # implementations (sail_prep checks, MCP tools, column strategies); their names are
-  # the caller's contract and can't be dropped. Positional args are still flagged.
-  AllowUnusedKeywordArguments: true
 
 Lint/UselessAssignment:
   Enabled: true
