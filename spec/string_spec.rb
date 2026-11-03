@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'English'
+
 RSpec.describe String do
   describe '#simhash' do
     it 'fingerprints the receiver' do
@@ -16,6 +18,20 @@ RSpec.describe String do
 
     it 'rejects unknown options' do
       expect { 'In the'.simhash(splitby: '') }.to raise_error(ArgumentError, /splitby/)
+    end
+
+    context 'when the global field separator is set' do
+      around do |example|
+        original_field_separator = $FIELD_SEPARATOR
+        $FIELD_SEPARATOR = ','
+        example.run
+      ensure
+        $FIELD_SEPARATOR = original_field_separator
+      end
+
+      it 'still splits on whitespace when split_by is nil' do
+        expect('a,b c'.simhash(split_by: nil)).to eq(Simhash.hash(['a,b', 'c']))
+      end
     end
   end
 

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class String
-  def simhash(split_by: ' ', **hash_options)
-    Simhash.hash(split(split_by), **hash_options)
+  def simhash(split_by: nil, **hash_options)
+    # Don't split on `nil`, which would honor the global field separator (`$;`).
+    Simhash.hash(split(split_by || ' '), **hash_options)
   end
 
   # Decimal-string form of #hash_vl_rb, kept for callers of the removed C extension's method.
