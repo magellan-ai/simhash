@@ -83,5 +83,46 @@ RSpec.describe Simhash do
     it 'keeps non-ASCII letters, which \W would strip' do
       expect(described_class.filtered_tokens(['Слово'])).to eq(['слово'])
     end
+
+    it 'drops tokens that match a stop sentence' do
+      expect(described_class.filtered_tokens(['Hello there', 'keep me'], stop_sentences: ' hello there '))
+        .to eq(['keep me'])
+    end
+
+    context 'with the deprecated stop_sentenses: spelling' do
+      it 'still drops tokens that match a stop sentence' do
+        expect(described_class.filtered_tokens(['Hello there', 'keep me'], stop_sentenses: ' hello there '))
+          .to eq(['keep me'])
+      end
+
+      it 'rejects being combined with stop_sentences:' do
+        expect { described_class.filtered_tokens(['keep me'], stop_sentences: ' a ', stop_sentenses: ' b ') }
+          .to raise_error(ArgumentError, /not both/)
+      end
+
+      it 'stays silent unless deprecation warnings are enabled' do
+        expect { described_class.filtered_tokens(['keep me'], stop_sentenses: ' hello there ') }.not_to output.to_stderr
+      end
+
+      context 'with deprecation warnings enabled' do
+        around do |example|
+          deprecation_warnings_enabled = Warning[:deprecated]
+          Warning[:deprecated] = true
+          example.run
+        ensure
+          Warning[:deprecated] = deprecation_warnings_enabled
+        end
+
+        it "warns at the caller's line" do
+          expect { described_class.filtered_tokens(['keep me'], stop_sentenses: ' hello there ') }
+            .to output(/\A#{Regexp.escape(__FILE__)}:\d+: warning: .*stop_sentenses: is deprecated/).to_stderr
+        end
+
+        it "warns at the caller's line when called through String#simhash" do
+          expect { 'keep me'.simhash(stop_sentenses: ' hello there ') }
+            .to output(/\A#{Regexp.escape(__FILE__)}:\d+: warning: .*stop_sentenses: is deprecated/).to_stderr
+        end
+      end
+    end
   end
 end
