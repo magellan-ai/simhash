@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class String
-  def simhash(options = {})
+  def simhash(options = {}) # rubocop:disable Style/OptionHash
     split_by = options.delete(:split_by) || ' '
     Simhash.hash(split(split_by), options)
   end

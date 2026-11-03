@@ -14,7 +14,7 @@ module Simhash
   DEFAULT_STRING_HASH_METHOD = :hash_vl_rb
   PUNCTUATION_REGEXP = /(\s|\d|[^\p{L}]|\u00A0| *— *|[«»…\-–—]| )+/
 
-  def self.hash(tokens, options = {})
+  def self.hash(tokens, options = {}) # rubocop:disable Style/OptionHash
     hashbits = options[:hashbits] || 64
     hashing_method = options[:hashing_method] || DEFAULT_STRING_HASH_METHOD
 
@@ -36,7 +36,7 @@ module Simhash
     fingerprint
   end
 
-  def self.each_filtered_token(tokens, options = {})
+  def self.each_filtered_token(tokens, options = {}) # rubocop:disable Style/OptionHash, Metrics/PerceivedComplexity
     token_min_size = options[:token_min_size].to_i
     stop_sentenses = options[:stop_sentenses]
     tokens.each do |token|
@@ -57,7 +57,7 @@ module Simhash
     end
   end
 
-  def self.filtered_tokens(tokens, options = {})
+  def self.filtered_tokens(tokens, options = {}) # rubocop:disable Style/OptionHash
     filtered_tokens = []
     each_filtered_token(tokens, options) { |token| filtered_tokens << token }
     filtered_tokens
