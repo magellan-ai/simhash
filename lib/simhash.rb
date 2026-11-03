@@ -6,7 +6,7 @@ require 'simhash/stopwords'
 
 module Simhash
   DEFAULT_STRING_HASH_METHOD = :hash_vl_rb
-  PUNCTUATION_REGEXP = /(\s|\d|[^\p{L}]|\u00A0| *— *|[«»…\-–—]| )+/
+  PUNCTUATION_REGEXP = /[^\p{L}]+/
 
   class << self
     def hash(tokens, hashbits: 64, hashing_method: DEFAULT_STRING_HASH_METHOD, **filter_options)
