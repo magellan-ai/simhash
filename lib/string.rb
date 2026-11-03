@@ -19,7 +19,7 @@ class String
     mask = (1 << length) - 1
     each_byte { |char| x = ((x * m) ^ char.to_i) & mask }
 
-    x ^= bytes.count
+    x ^= bytesize
     x = -2 if x == -1
     x
   end
