@@ -5,6 +5,6 @@ require File.join(File.dirname(__FILE__), 'stopwords', 'ru')
 
 module Simhash
   module Stopwords
-    ALL = RU + EN
+    ALL = (RU + EN).freeze
   end
 end
