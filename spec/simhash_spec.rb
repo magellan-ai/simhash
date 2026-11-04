@@ -35,6 +35,11 @@ RSpec.describe Simhash do
         expect(described_class.hash('В начале было Слово'.split, hashbits: 64, stop_words: true))
           .to eq(described_class.hash('начале Слово'.split, hashbits: 64))
       end
+
+      it 'drops stopwords containing punctuation when punctuation is preserved' do
+        expect(described_class.filtered_tokens(["Don't panic"], stop_words: true, preserve_punctuation: true))
+          .to eq(['panic'])
+      end
     end
 
     it 'rejects unknown options' do
@@ -117,15 +122,7 @@ RSpec.describe Simhash do
         expect { described_class.filtered_tokens(['keep me'], stop_sentenses: ' hello there ') }.not_to output.to_stderr
       end
 
-      context 'with deprecation warnings enabled' do
-        around do |example|
-          deprecation_warnings_enabled = Warning[:deprecated]
-          Warning[:deprecated] = true
-          example.run
-        ensure
-          Warning[:deprecated] = deprecation_warnings_enabled
-        end
-
+      context 'with deprecation warnings enabled', deprecation_warnings: true do
         it "warns at the caller's line" do
           expect { described_class.filtered_tokens(['keep me'], stop_sentenses: ' hello there ') }
             .to output(/\A#{Regexp.escape(__FILE__)}:\d+: warning: .*stop_sentenses: is deprecated/).to_stderr
