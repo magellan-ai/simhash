@@ -16,6 +16,4 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.files = Dir.glob(include_globs, base: __dir__)
   s.require_path = 'lib'
-
-  s.add_dependency 'activesupport', '>= 8.0', '< 8.2'
 end

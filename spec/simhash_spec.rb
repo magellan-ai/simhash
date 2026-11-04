@@ -43,6 +43,20 @@ RSpec.describe Simhash do
       expect(described_class.filtered_tokens(%w[a bb ccc], token_min_size: 2)).to eq(%w[bb ccc])
     end
 
+    it 'measures token_min_size in characters, not bytes' do
+      expect(described_class.filtered_tokens(%w[я мы], token_min_size: 2)).to eq(%w[мы])
+    end
+
+    it "measures token_min_size in the token's own encoding" do
+      shift_jis_token = '日本'.encode('Shift_JIS')
+
+      expect(described_class.filtered_tokens([shift_jis_token], preserve_punctuation: true, token_min_size: 3)).to be_empty
+    end
+
+    it 'filters without emitting warnings' do
+      expect { described_class.filtered_tokens(['Слово']) }.not_to output.to_stderr
+    end
+
     it 'strips punctuation and downcases' do
       expect(described_class.filtered_tokens(['Word,'])).to eq(['word'])
     end

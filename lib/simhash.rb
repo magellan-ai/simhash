@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-require 'active_support/core_ext/string/multibyte'
-# String#mb_chars is deprecated as of ActiveSupport 8.1 and its warning path calls
-# ActiveSupport.deprecator, which the multibyte core_ext alone does not load.
-require 'active_support/deprecation'
-require 'active_support/deprecator'
-
 require 'string'
 require 'integer'
 require 'simhash/stopwords'
@@ -51,7 +45,7 @@ module Simhash
       # cutting stop-sentenses
       next if stop_sentenses&.include?(" #{token} ")
 
-      next if token.empty? || token.mb_chars.size < token_min_size
+      next if token.empty? || token.length < token_min_size
 
       yield token
     end
